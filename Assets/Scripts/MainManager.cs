@@ -85,6 +85,7 @@ public class MainManager : MonoBehaviour
             DataPersistence.Instance.topName = DataPersistence.Instance.currentName;
             NewHighScoreText.SetActive(true);
             UpdateTopScore();
+            DataPersistence.Instance.SaveTopScore();
         }
     }
 

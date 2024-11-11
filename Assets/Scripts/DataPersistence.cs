@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.IO;
+using System.Data;
 
 public class DataPersistence : MonoBehaviour
 {
@@ -19,17 +21,37 @@ public class DataPersistence : MonoBehaviour
         }
         Instance = this;
         DontDestroyOnLoad(gameObject);
+        LoadTopScore();
     }
 
-    // Start is called before the first frame update
-    void Start()
+    [System.Serializable]
+    class SaveData
     {
-        
+        public string topName;
+        public int topScore;
     }
 
-    // Update is called once per frame
-    void Update()
+    public void SaveTopScore()
     {
-        
+        SaveData data = new SaveData();
+        data.topName = topName;
+        data.topScore = topScore;
+
+        string json = JsonUtility.ToJson(data);
+
+        File.WriteAllText(Application.persistentDataPath + "/savefile.json", json);
+    }
+
+    public void LoadTopScore()
+    {
+        string path = Application.persistentDataPath + "/savefile.json";
+        if (File.Exists(path))
+        {
+            string json = File.ReadAllText(path);
+            SaveData data = JsonUtility.FromJson<SaveData>(json);
+
+            topName = data.topName;
+            topScore = data.topScore;
+        }
     }
 }
