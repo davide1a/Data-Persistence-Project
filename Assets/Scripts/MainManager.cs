@@ -11,8 +11,10 @@ public class MainManager : MonoBehaviour
     public Rigidbody Ball;
 
     public Text ScoreText;
-    public Text TopScoreText;
+    public Text TopScoreName;
+    public Text TopScoreScore;
     public GameObject GameOverText;
+    public GameObject NewHighScoreText;
     
     private bool m_Started = false;
     private int m_Points;
@@ -81,12 +83,14 @@ public class MainManager : MonoBehaviour
         {
             DataPersistence.Instance.topScore = m_Points;
             DataPersistence.Instance.topName = DataPersistence.Instance.currentName;
+            NewHighScoreText.SetActive(true);
             UpdateTopScore();
         }
     }
 
     public void UpdateTopScore()
     {
-        TopScoreText.text = "Top Score: " + DataPersistence.Instance.topName + ": " + DataPersistence.Instance.topScore;
+        TopScoreName.text = DataPersistence.Instance.topName;
+        TopScoreScore.text = " " + DataPersistence.Instance.topScore;
     }
 }

@@ -23,7 +23,10 @@ public class MenuUI : MonoBehaviour
 
     public void LoadMain()
     {
-        SceneManager.LoadScene(1);
+        if (newName.text != "")
+        {
+            SceneManager.LoadScene(1);
+        }
     }
     public void GetInputText()
     {
